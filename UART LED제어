@@ -1,0 +1,19 @@
+const int LED_PIN = 13; // LED 핀 설정
+
+void setup() {
+  Serial.begin(9600); // UART 초기화
+  pinMode(LED_PIN, OUTPUT); // LED 핀을 출력으로 설정
+}
+
+void loop() {
+  if (Serial.available()) { // 데이터 수신 확인
+    String data = Serial.readStringUntil('\n'); // 데이터 읽기
+    if (data == "hi") { // 데이터가 "hi"인 경우
+      digitalWrite(LED_PIN, HIGH); // LED 켜기
+      Serial.write("hi"); // 다른 아두이노로 데이터 전송
+    } else if (data == "bye") { // 데이터가 "bye"인 경우
+      digitalWrite(LED_PIN, LOW); // LED 끄기
+      Serial.write("bye"); // 다른 아두이노로 데이터 전송
+    }
+  }
+}
